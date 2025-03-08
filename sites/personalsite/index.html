@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Edyt - Your code, always live.</title>
+    <style>
+        /* Ingevoerde CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+        @import url('https://fonts.cdnfonts.com/css/satoshi');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar img {
+            height: 40px;
+        }
+
+        .navbar .links {
+            display: flex;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .navbar .button {
+            background-color: black;
+            border: none;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar .button:hover {
+            background-color: #333;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            margin: 4px 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar .links a {
+                padding: 10px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .navbar .links a:last-child {
+                border-bottom: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar.active .links {
+                display: flex;
+            }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Satoshi', sans-serif;
+            margin-top: 10px;
+        }
+
+        .header-left {
+            max-width: 50%;
+            z-index: 2; /* Zorgt ervoor dat de tekst boven de afbeelding blijft */
+            margin-left: 60px;
+        }
+
+        .header-left p {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .header-left h1 {
+            margin: 1px 0;
+            font-size: 3.5em;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons #button1 {
+            background-color: #0073EC;
+            border: none;
+            color: white;
+            height: 45.93px;
+            border-radius: 6.05px;
+        }
+        .buttons #button2 {
+            background-color: transparent;
+            color: black;
+            border: 1.5px solid black;
+            height: 45.93px;
+            border-radius: 6.05px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .header-right img {
+            max-width: 634.71px;
+            height: auto;
+            z-index: 1; /* Plaatst de afbeelding achter de tekst */
+        }
+
+        /* Media query voor mobiele apparaten */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: left;
+                padding: 50px 20px;
+            }
+
+            .header-left {
+                max-width: 100%;
+                position: relative;
+                margin-left: 0px;
+            }
+
+            .header-right img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 0;
+            }
+
+            .buttons button {
+                margin: 10px 5px;
+            }
+        }
+
+        .boxes {
+            display: flex;
+            align-items: stretch;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 100px;
+            justify-content: center;
+        }
+        
+
+        .box {
+            flex: 1;
+            max-width: 237.88px; /* Zorgt ervoor dat er 4 boxen naast elkaar staan */
+            padding: 20px;
+            background-color: #F4F6F9;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            border-radius: 29.47px;
+        }
+
+        .box img {
+            width: 44.21px;
+            height: 44.21px;
+            margin-bottom: 20px;
+        }
+
+        .box p {
+            font-size: 15px;
+            margin: 0;
+            color: #6E7978;
+        }
+
+        /* Media query voor mobiele apparaten */
+        @media (max-width: 768px) {
+            .box {
+                min-width: 137.88px; /* Zorgt ervoor dat er 2 boxen naast elkaar staan op mobiel */
+            }
+            .boxes {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .box {
+                max-width: 100%; /* Eén box per rij bij zeer kleine schermen */
+            }
+        }
+        .content-box-overlay {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .content-box {
+            display: flex; /* Flexbox voor de layout */
+            background-color: #F4F6F9; /* Achtergrondkleur */
+            border-radius: 8px; /* Ronde hoeken */
+            margin: 20px 0; /* Ruimte tussen de boxen */
+            width: 90%;
+            height: 390px;
+            border-radius: 29.47px;
+            margin: 0px;
+            padding: 0px;
+            margin-left: 5%;
+            margin-top: 20vh;
+        }
+        .content-left {
+            margin: 0px;
+            padding: 0px;
+        }
+
+.content-left img {
+    height: 390px; /* Houd de verhoudingen van de afbeelding */
+    border-bottom-left-radius: 29.47px;
+    border-top-left-radius: 29.47px;
+}
+
+.content-right {
+    flex: 1; /* Laat de rechterkant de resterende ruimte innemen */
+    margin-top: 100px;
+}
+
+.content-right h1 {
+    margin: 0 0 10px; /* Ruimte onder de titel */
+    font-size: 1.8em; /* Grotere tekstgrootte voor de titel */
+}
+
+.content-right p {
+    margin: 0 0 20px; /* Ruimte onder de paragraaf */
+    font-size: 1em; /* Standaard tekstgrootte */
+}
+
+.button-group {
+    display: flex; /* Flexbox voor de knoppen */
+    gap: 10px; /* Ruimte tussen de knoppen */
+}
+
+.button {
+    background-color: #0073EC;
+    border: none;
+    color: white;
+    height: 45.93px;
+    border-radius: 6.05px;
+    padding: 10px 20px;
+}
+.button2 {
+    background-color: transparent;
+    color: black;
+    border: 1.5px solid black;
+    height: 45.93px;
+    border-radius: 6.05px;
+    padding: 10px 20px;
+}
+
+
+/* Responsieve styling */
+@media (max-width: 768px) {
+    .content-box {
+        flex-direction: column; /* Stapel elementen op mobiele apparaten */
+        align-items: flex-start; /* Linkslijn de elementen */
+        background-image: url("/images/3drenderofrectanglecropped.png");
+    }
+    .content-right {
+        margin-left: 50px;
+    }
+
+    .content-left img {
+        display: none;
+    }
+}
+#domains {
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+}
+#domains img {
+    width: 499.72px;
+}
+#domains input {
+    height: 64.36px;
+    width: 499.72px;
+    background-color: #F4F6F9;
+    border: none;
+    margin-right: 20px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 18px;
+    padding-left: 10px;
+}
+@media (max-width: 800px) {
+    #domains {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+    }
+    #domains input {
+        width: 90%;
+    }
+    #domains img {
+        width: 90%;
+    }
+}
+    /* Algemene stijlen */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #F4F6F9;
+      color: #000000;
+      height: 334px;
+      margin-top: 150px;
+    }
+    
+    .footer-logo {
+      flex-basis: 20%;
+    }
+    
+    .footer-logo img {
+      max-width: 118px;
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+    
+    .footer-columns {
+      display: flex;
+      flex-basis: 75%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 3vw;
+    }
+    
+    .footer-column {
+      flex-basis: 18%;
+      margin-bottom: 20px;
+    }
+    
+    .footer-column h3 {
+      margin-bottom: 10px;
+      font-size: 21px;
+      color: #0073EC;
+      font-weight: 500;
+
+    }
+    
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-column ul li {
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    /* Responsive ontwerp voor tablets en kleinere schermen */
+    @media (max-width: 768px) {
+      .footer-column {
+        flex-basis: 45%; /* 2 kolommen naast elkaar */
+      }
+      .footer-columns {
+        margin-top: 0px;
+      }
+    }
+
+    /* Responsive ontwerp voor kleine mobiele schermen */
+    @media (max-width: 280px) {
+      .footer-column {
+        flex-basis: 100%; /* Onder elkaar bij kleine schermen */
+      }
+
+      .footer-logo {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .footer-columns {
+        margin-top: 0px;
+      }
+    }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="logo.html"><img src="logo.png" alt="Logo"></a>
+        <div class="links">
+            <a href="#pricing">Pricing</a>
+            <a href="#whyus">Why Us</a>
+            <a href="#offer">What We Offer</a>
+            <a href="#features">Features</a>
+            <a href="#support">Support</a>
+        </div>
+        <button class="button">Login</button>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+    <div class="header">
+        <div class="header-left">
+            <p style="color: #0073EC; font-weight: bold; font-size: 14px;">MEET EDYT.LOL</p>
+            <h1>Your code,<br>always live.</h1>
+            <p style="font-size: 18px;">
+                We make sure your website is fast, secure & always up - so
+                <br> 
+                your vistors & search engines trust you. Guaranteed
+            </p>
+            <div class="buttons">
+                <button id="button1">Get Started</button>
+                <button id="button2">Dashboard</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <img src="/images/headerimage.png" alt="Afbeelding">
+        </div>
+    </div>
+    <div class="boxes">
+        <div class="box">
+            <img src="/images/wordpress.png" alt="Logo 1">
+            <p>WordPress Hosting><br>Starting at 15.95/mo</p>
+        </div>
+        <div class="box">
+            <img src="/images/server.png" alt="Logo 2">
+            <p>Website Hosting<br>Starting at 1.95/mo</p>
+        </div>
+        <div class="box">
+            <img src="/images/data1.png" alt="Logo 3">
+            <p>.COM Domain names<br>Starting at 9.95/mo</p>
+        </div>
+        <div class="box">
+            <img src="/images/sdcard.png" alt="Logo 4">
+            <p>Free WordPress<br>Migrations</p>
+        </div>
+    </div>
+    <div id="content-box-overlay">
+    <div class="content-box">
+        <div class="content-left">
+            <img src="/images/3drenderofrectanglecropped.png" alt="Beschrijving van de afbeelding" />
+        </div>
+        <div class="content-right">
+            <h1>Get your site up and<br>running <span style="text-decoration: underline;">fast</span> with with edifyAI</h1>
+            <p>Edfy is an AI model that helps with coding tasks, from<br>writing code to creating full websites</p>
+            <div class="button-group">
+                <button class="button">Get Started</button>
+                <button class="button2">Pricing</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="domains">
+        <div id="domainregistar">
+            <input placeholder="Search for the perfect domain">
+            <p style="font-size: 11px;">powered by Lkts.cc</p>
+        </div>
+        <div id="images-domain">
+            <img src="/images/domainregistars.png">
+        </div>
+    </div>
+    <footer>
+        <!-- Logo -->
+        <div class="footer-logo">
+          <img src="logo.png" alt="Logo">
+        </div>
+    
+        <!-- 5 kolommen met rijtjes -->
+        <div class="footer-columns">
+          <div class="footer-column">
+            <h3>Connect</h3>
+            <ul>
+              <li>Support Ticket</li>
+              <li>FAQ</li>
+              <li>Support Chat</li>
+              <li>Sales Help</li>
+              <li>Press</li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li>About</li>
+              <li>Affiliates</li>
+              <li>Blog</li>
+              <li>Careers</li>
+              <li>Partners</li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Legal</h3>
+            <ul>
+              <li>Privacy Policy</li>
+              <li>Terms of Service</li>
+              <li>WHOIS Lookup</li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Recourses</h3>
+            <ul>
+              <li>Contact</li>
+              <li>Knowlage base</li>
+              <li>Blog</li>
+              <li>Products</li>
+              <li>Lkts Domains</li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Log in</h3>
+            <ul>
+              <li>Dashboard</li>
+              <li>Lkts</li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
