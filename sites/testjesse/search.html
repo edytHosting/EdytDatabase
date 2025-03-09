@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bang Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .search-container {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    </style>
+    <script src="card.js" defer></script>
+</head>
+<body>
+    <search-box></search-box>
+
+    <script>
+        let bangs = [];
+
+        // Fetch and parse the bangs data
+        fetch('https://raw.githubusercontent.com/t3dotgg/unduck/main/src/bang.ts')
+            .then(response => response.text())
+            .then(data => {
+                const bangsArrayString = data.match(/export\s+const\s+bangs\s+=\s+(\[.*?\]);/s)[1];
+                bangs = eval(bangsArrayString);
+                console.log('Bangs data fetched:', bangs);
+            })
+            .catch(error => console.error('Error fetching bangs data:', error));
+
+        function performSearch() {
+            const input = document.getElementById('searchInput').value.trim();
+            const [bang, ...searchTerms] = input.split(' ');
+            const searchQuery = searchTerms.join(' ');
+
+            const bangEntry = bangs.find(b => `!${b.t}` === bang);
+
+            if (bangEntry) {
+                const searchUrl = bangEntry.u.replace('{{{s}}}', encodeURIComponent(searchQuery));
+                window.location.href = searchUrl;
+            }
+        }
+    </script>
+</body>
+</html>
